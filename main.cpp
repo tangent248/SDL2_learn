@@ -35,7 +35,7 @@ int main(int argc, char* argv[]){
             SDL_WINDOW_SHOWN);
 
     // Infinite loop for our application
-    bool gameIsRunning = false;
+    bool gameIsRunning = true;
     while(gameIsRunning){
         SDL_Event event;
         // Start our event loop
