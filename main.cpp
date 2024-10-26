@@ -29,7 +29,7 @@ int main(int argc, char* argv[]){
     // and the width and height of the window.
     window = SDL_CreateWindow("C++ SDL2 Window",
             0,
-            2500,
+            0,
             640,
             480,
             SDL_WINDOW_SHOWN);
