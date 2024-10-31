@@ -1,7 +1,5 @@
-FROM ubuntu
-RUN apt update -y \
-&& apt install clang -y && apt-get install libsdl2-dev -y 
+FROM didstopia/sdl2 
 COPY . /app
 WORKDIR /app
-RUN clang++ main.cpp -o main -I./glad/include  -lSDL2 
+RUN g++ main.cpp -o main -I./glad/include  -lSDL2 -std=c++11
 CMD [ "./main" ]

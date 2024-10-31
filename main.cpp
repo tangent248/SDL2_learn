@@ -28,12 +28,24 @@ int main(int argc, char* argv[]){
     // Request a window to be created for our platform
     // The parameters are for the title, x and y position,
     // and the width and height of the window.
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,24);
+
+
+
+
+
     window = SDL_CreateWindow("C++ SDL2 Window",
             0,
             0,
             640,
             480,
-            SDL_WINDOW_SHOWN);
+            SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+        SDL_GLContext context;
+        context = SDL_GL_CreateContext(window);
 
     // Infinite loop for our application
     bool gameIsRunning = true;
