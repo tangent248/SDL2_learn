@@ -1,5 +1,5 @@
 FROM didstopia/sdl2 
 COPY . /app
 WORKDIR /app
-RUN g++ main.cpp -o main -I./glad/include  -lSDL2 -std=c++11
+RUN g++ -std=c++17 main.cpp glad/src/glad.c -I./glad/include -o main -lSDL2 -ldl -lGL
 CMD [ "./main" ]
