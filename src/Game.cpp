@@ -45,6 +45,13 @@ return false; // SDL init fail
 std::cout << "init success\n";
 m_bRunning = true; // everything inited successfully, start the main loop
 return true;
+
+SDL_Surface* pTempSurface = SDL_LoadBMP("assets/fishdish_mockup.bmp");
+m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+SDL_FreeSurface(pTempSurface);
+SDL_QueryTexture(m_pTexture, NULL, NULL,
+&m_sourceRectangle.w, &m_sourceRectangle.h);
+
 }
 void Game::render()
 {
