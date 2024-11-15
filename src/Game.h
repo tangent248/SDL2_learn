@@ -1,4 +1,5 @@
 #include "SDL2/SDL.h"
+#include <SDL2/SDL_image.h>
 #ifndef __Game__
 #define __Game__
 
