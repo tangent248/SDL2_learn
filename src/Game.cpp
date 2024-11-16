@@ -20,17 +20,23 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height,
       if (m_pRenderer != 0) // renderer init success
       {
         std::cout << "renderer creation success\n";
-        SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 
-        SDL_Surface *pTempSurface = IMG_Load("src/assets/fishdish_mockup.png");
+        SDL_Surface *pTempSurface = IMG_Load("src/assets/char9.png");
         m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
         SDL_FreeSurface(pTempSurface);
         SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w,
                          &m_sourceRectangle.h);
-        m_destinationRectangle.x = m_sourceRectangle.x = 0;
-        m_destinationRectangle.y = m_sourceRectangle.y = 0;
-        m_destinationRectangle.w = m_sourceRectangle.w;
-        m_destinationRectangle.h = m_sourceRectangle.h;
+        m_sourceRectangle.w = 128;
+        m_sourceRectangle.h = 82;
+        m_sourceRectangle.x = 0;
+        m_sourceRectangle.y = 60;
+
+        m_destinationRectangle.x = 0;
+        m_destinationRectangle.y = 0;
+        m_destinationRectangle.w = 128;
+        m_destinationRectangle.h = 82;
+
       } else {
         std::cout << "renderer init fail\n";
         return false; // renderer init fail
@@ -46,7 +52,6 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height,
   std::cout << "init success\n";
   m_bRunning = true; // everything inited successfully, start the main loop
   return true;
-
 }
 void Game::render() {
   SDL_RenderClear(m_pRenderer); // clear the renderer to the draw color
