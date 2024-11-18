@@ -1,6 +1,5 @@
 #include "Game.h"
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_render.h>
 #include <iostream>
 bool Game::init(const char *title, int xpos, int ypos, int width, int height,
                 bool fullscreen) {
@@ -20,23 +19,9 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height,
       if (m_pRenderer != 0) // renderer init success
       {
         std::cout << "renderer creation success\n";
-        SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
-
-        SDL_Surface *pTempSurface = IMG_Load("src/assets/char9.png");
-        m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
-        SDL_FreeSurface(pTempSurface);
-        SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w,
-                         &m_sourceRectangle.h);
-        m_sourceRectangle.w = 128;
-        m_sourceRectangle.h = 82;
-        m_sourceRectangle.x = 0;
-        m_sourceRectangle.y = 60;
-
-        m_destinationRectangle.x = 0;
-        m_destinationRectangle.y = 0;
-        m_destinationRectangle.w = 128;
-        m_destinationRectangle.h = 82;
-
+        SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 0);
+        m_textureManager.load("src/assets/char9.png",
+        "animate", m_pRenderer);
       } else {
         std::cout << "renderer init fail\n";
         return false; // renderer init fail
@@ -53,11 +38,29 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height,
   m_bRunning = true; // everything inited successfully, start the main loop
   return true;
 }
-void Game::render() {
-  SDL_RenderClear(m_pRenderer); // clear the renderer to the draw color
-  SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle,
-                 &m_destinationRectangle);
-  SDL_RenderPresent(m_pRenderer); // draw to the screen
+void Game::render()
+{
+SDL_RenderClear(m_pRenderer);
+m_textureManager.draw("animate", 0,0, 128, 82,
+m_pRenderer);
+m_textureManager.drawFrame("animate", 100,100, 128, 82,
+1, m_currentFrame, m_pRenderer);
+SDL_RenderPresent(m_pRenderer);
+}
+void Game::update()
+{
+m_currentFrame = int(((SDL_GetTicks() / 100) % 4));
+}
+void Game::fps(int fps){
+    const int FPS = fps;
+    const int frameDelay = 1000 / FPS;
+    Uint32 frameStart;
+    int frameTime;
+    frameStart = SDL_GetTicks();
+    frameTime = SDL_GetTicks() - frameStart;
+    if (frameDelay>frameTime){
+        SDL_Delay(frameDelay-frameTime);
+    }
 }
 void Game::handleEvents() {
   SDL_Event event;
