@@ -93,16 +93,10 @@ void Game::handleEvents()
 void Game::clean()
 {
   std::cout << "cleaning game\n";
-  if (m_pRenderer != nullptr)
-  {
-    std::cout << "renderer is not null\n";
-    SDL_DestroyRenderer(m_pRenderer);
-  }
-  if (m_pWindow != nullptr)
-  {
-    std::cout << "window is not null\n";
-    SDL_DestroyWindow(m_pWindow);
-  }
 
-    SDL_Quit();
+  SDL_DestroyRenderer(m_pRenderer);
+
+  SDL_DestroyWindow(m_pWindow);
+
+  SDL_Quit();
 }
