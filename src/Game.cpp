@@ -22,7 +22,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height,
       if (m_pRenderer != 0) // renderer init success
       {
         std::cout << "renderer creation success\n";
-        SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 0);
+        SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 0);
         if (!TextureManager::Instance().load("src/assets/char9.png",
                                                  "animate", m_pRenderer)) {
           return false;
